@@ -14,7 +14,7 @@ class PaymentViewController: UIViewController {
     private static let merchantIdentifier = "merchant.com.kagemiku.piosiki"
 
     private var paymentNetworksToSupport: [PKPaymentNetwork] {
-        [
+        return [
             .masterCard,
         ]
     }
