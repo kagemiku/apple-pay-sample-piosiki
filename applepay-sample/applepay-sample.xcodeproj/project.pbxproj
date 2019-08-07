@@ -3,10 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1012D7CE22FA5D5B0075EC6E /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1012D7CD22FA5D5B0075EC6E /* Stripe.framework */; };
 		E9C15B5922E9D48F00EDAEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B5822E9D48F00EDAEC7 /* AppDelegate.swift */; };
 		E9C15B5D22E9D48F00EDAEC7 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B5C22E9D48F00EDAEC7 /* PaymentViewController.swift */; };
 		E9C15B6222E9D49400EDAEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9C15B6122E9D49400EDAEC7 /* Assets.xcassets */; };
@@ -34,6 +35,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		1012D7CD22FA5D5B0075EC6E /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
 		E9C15B5522E9D48F00EDAEC7 /* applepay-sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "applepay-sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C15B5822E9D48F00EDAEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		E9C15B5C22E9D48F00EDAEC7 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
@@ -55,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1012D7CE22FA5D5B0075EC6E /* Stripe.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +78,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1012D7CC22FA5D5B0075EC6E /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1012D7CD22FA5D5B0075EC6E /* Stripe.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		E9C15B4C22E9D48E00EDAEC7 = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +93,7 @@
 				E9C15B6E22E9D49400EDAEC7 /* applepay-sampleTests */,
 				E9C15B7922E9D49400EDAEC7 /* applepay-sampleUITests */,
 				E9C15B5622E9D48F00EDAEC7 /* Products */,
+				1012D7CC22FA5D5B0075EC6E /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -145,6 +157,7 @@
 				E9C15B5122E9D48F00EDAEC7 /* Sources */,
 				E9C15B5222E9D48F00EDAEC7 /* Frameworks */,
 				E9C15B5322E9D48F00EDAEC7 /* Resources */,
+				1012D7CB22FA5C3E0075EC6E /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -260,6 +273,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		1012D7CB22FA5C3E0075EC6E /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"$(SRCROOT)/input.xcfilelist",
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+				"$(SRCROOT)/output.xcfilelist",
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		E9C15B5122E9D48F00EDAEC7 /* Sources */ = {
@@ -435,6 +470,10 @@
 				CODE_SIGN_ENTITLEMENTS = "applepay-sample/applepay-sample.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8P37ZVM8N8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "applepay-sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -454,6 +493,10 @@
 				CODE_SIGN_ENTITLEMENTS = "applepay-sample/applepay-sample.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 8P37ZVM8N8;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = "applepay-sample/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

@@ -8,6 +8,7 @@
 
 import UIKit
 import PassKit
+import Stripe
 
 class PaymentViewController: UIViewController {
 
@@ -15,7 +16,7 @@ class PaymentViewController: UIViewController {
 
     private var paymentNetworksToSupport: [PKPaymentNetwork] {
         return [
-            .masterCard,
+            .visa,
         ]
     }
 
@@ -125,7 +126,24 @@ extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
     }
 
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
-        completion(.success)
+        print("payment: \(payment)")
+
+        STPAPIClient.shared().createToken(with: payment) { (token: STPToken?, error: Error?) in
+            guard error == nil else {
+                print("Error: \(error!)")
+                completion(.failure)
+                return
+            }
+
+            guard let token = token else {
+                print("Error: token is nil")
+                completion(.failure)
+                return
+            }
+
+            print("Token: \(token)")
+            completion(.success)
+        }
     }
 
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didSelect shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
