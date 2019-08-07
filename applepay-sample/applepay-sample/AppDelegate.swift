@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import Stripe
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -20,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let nvc = UINavigationController(rootViewController: PaymentViewController())
         window?.rootViewController = nvc
         window?.makeKeyAndVisible()
+
+        STPPaymentConfiguration.shared().publishableKey = "pk_test_gksY4PDOLoVuqLOnrnml6ca700BHh2W6DC"
+        STPPaymentConfiguration.shared().appleMerchantIdentifier = "merchant.com.kagemiku.piosiki"
 
         return true
     }
