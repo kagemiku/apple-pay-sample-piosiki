@@ -21,14 +21,16 @@ class PaymentsViewController: UIViewController {
     }()
 
     @IBOutlet private weak var containerView: UIStackView!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setup()
+        setupChilds()
+        setupNotifications()
     }
 
-    private func setup() {
+    private func setupChilds() {
         addChild(inAppPurchaseViewController)
         containerView.addArrangedSubview(inAppPurchaseViewController.view)
         inAppPurchaseViewController.didMove(toParent: self)
@@ -36,6 +38,16 @@ class PaymentsViewController: UIViewController {
         addChild(applePayViewController)
         containerView.addArrangedSubview(applePayViewController.view)
         applePayViewController.didMove(toParent: self)
+    }
+
+    private func setupNotifications() {
+        NotificationCenter.default.addObserver(forName: InAppPurchaseManager.InAppPurchaseStatusKey.start.name, object: nil, queue: .main) { [weak self] _ in
+            self?.activityIndicator.startAnimating()
+        }
+
+        NotificationCenter.default.addObserver(forName: InAppPurchaseManager.InAppPurchaseStatusKey.finish.name, object: nil, queue: .main) { [weak self] _ in
+            self?.activityIndicator.stopAnimating()
+        }
     }
 
 }
