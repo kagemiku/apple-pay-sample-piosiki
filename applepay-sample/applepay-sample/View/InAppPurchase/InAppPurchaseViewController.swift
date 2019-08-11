@@ -14,4 +14,8 @@ class InAppPurchaseViewController: UIViewController {
         super.viewDidLoad()
     }
 
+    @IBAction func didTapInAppPurchaseButton(_ sender: Any) {
+        InAppPurchaseManager.shared.requestPurchase()
+    }
+
 }

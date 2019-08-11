@@ -20,17 +20,18 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="300"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="In-App Purchase" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c65-wy-wT6">
-                    <rect key="frame" x="143" y="139.5" width="128" height="21"/>
-                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                    <nil key="textColor"/>
-                    <nil key="highlightedColor"/>
-                </label>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qCI-Vg-vlG">
+                    <rect key="frame" x="149.5" y="135" width="115" height="30"/>
+                    <state key="normal" title="In-App Purchase"/>
+                    <connections>
+                        <action selector="didTapInAppPurchaseButton:" destination="-1" eventType="touchUpInside" id="tbG-Ve-n31"/>
+                    </connections>
+                </button>
             </subviews>
             <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
             <constraints>
-                <constraint firstItem="c65-wy-wT6" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="cE5-sh-vjJ"/>
-                <constraint firstItem="c65-wy-wT6" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="iEq-1a-uMx"/>
+                <constraint firstItem="qCI-Vg-vlG" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="XYr-Jv-K54"/>
+                <constraint firstItem="qCI-Vg-vlG" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="t2g-wt-nLv"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
