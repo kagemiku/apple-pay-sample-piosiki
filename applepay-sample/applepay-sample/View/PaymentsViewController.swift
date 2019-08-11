@@ -10,6 +10,11 @@ import UIKit
 
 class PaymentsViewController: UIViewController {
 
+    private lazy var inAppPurchaseViewController: InAppPurchaseViewController = {
+        let vc = InAppPurchaseViewController()
+        return vc
+    }()
+
     private lazy var applePayViewController: ApplePayViewController = {
         let vc = ApplePayViewController()
         return vc
@@ -19,6 +24,14 @@ class PaymentsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        setup()
+    }
+
+    private func setup() {
+        addChild(inAppPurchaseViewController)
+        containerView.addArrangedSubview(inAppPurchaseViewController.view)
+        inAppPurchaseViewController.didMove(toParent: self)
 
         addChild(applePayViewController)
         containerView.addArrangedSubview(applePayViewController.view)
