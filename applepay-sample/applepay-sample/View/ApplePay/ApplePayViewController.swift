@@ -1,5 +1,5 @@
 //
-//  PaymentViewController.swift
+//  ApplePayViewController.swift
 //  applepay-sample
 //
 //  Created by kagemiku on 2019/07/25.
@@ -10,7 +10,7 @@ import UIKit
 import PassKit
 import Stripe
 
-class PaymentViewController: UIViewController {
+class ApplePayViewController: UIViewController {
 
     private static let merchantIdentifier = "merchant.com.kagemiku.piosiki"
 
@@ -22,7 +22,7 @@ class PaymentViewController: UIViewController {
 
     private lazy var paymentButton: PKPaymentButton = {
         let button = PKPaymentButton(paymentButtonType: .plain, paymentButtonStyle: .black)
-        button.addTarget(self, action: #selector(PaymentViewController.didPaymentButtonTap), for: .touchUpInside)
+        button.addTarget(self, action: #selector(ApplePayViewController.didPaymentButtonTap), for: .touchUpInside)
 
         return button
     }()
@@ -106,7 +106,7 @@ class PaymentViewController: UIViewController {
         let paymentRequest = PKPaymentRequest()
         paymentRequest.currencyCode = "JPY"
         paymentRequest.countryCode = "JP"
-        paymentRequest.merchantIdentifier = PaymentViewController.merchantIdentifier
+        paymentRequest.merchantIdentifier = ApplePayViewController.merchantIdentifier
         paymentRequest.supportedNetworks = paymentNetworksToSupport
         paymentRequest.merchantCapabilities = PKMerchantCapability.capability3DS
         paymentRequest.paymentSummaryItems = paymentSummaryItems()
@@ -119,7 +119,7 @@ class PaymentViewController: UIViewController {
 
 }
 
-extension PaymentViewController: PKPaymentAuthorizationViewControllerDelegate {
+extension ApplePayViewController: PKPaymentAuthorizationViewControllerDelegate {
 
     func paymentAuthorizationViewControllerDidFinish(_ controller: PKPaymentAuthorizationViewController) {
         controller.dismiss(animated: true, completion: nil)

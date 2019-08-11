@@ -8,13 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		1012D7CE22FA5D5B0075EC6E /* Stripe.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1012D7CD22FA5D5B0075EC6E /* Stripe.framework */; };
+		1012D7D2230031450075EC6E /* PaymentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1012D7D0230031450075EC6E /* PaymentsViewController.swift */; };
+		1012D7D3230031450075EC6E /* PaymentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1012D7D1230031450075EC6E /* PaymentsViewController.xib */; };
+		1012D7D7230033060075EC6E /* InAppPurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1012D7D5230033060075EC6E /* InAppPurchaseViewController.swift */; };
+		1012D7D8230033060075EC6E /* InAppPurchaseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 1012D7D6230033060075EC6E /* InAppPurchaseViewController.xib */; };
+		10F1CCEF230046870081DDBF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 10F1CCEE230046870081DDBF /* StoreKit.framework */; };
+		10F1CCF223004B2C0081DDBF /* InAppPurchaseManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 10F1CCF123004B2C0081DDBF /* InAppPurchaseManager.swift */; };
 		E9C15B5922E9D48F00EDAEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B5822E9D48F00EDAEC7 /* AppDelegate.swift */; };
-		E9C15B5D22E9D48F00EDAEC7 /* PaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B5C22E9D48F00EDAEC7 /* PaymentViewController.swift */; };
+		E9C15B5D22E9D48F00EDAEC7 /* ApplePayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B5C22E9D48F00EDAEC7 /* ApplePayViewController.swift */; };
 		E9C15B6222E9D49400EDAEC7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E9C15B6122E9D49400EDAEC7 /* Assets.xcassets */; };
 		E9C15B6522E9D49400EDAEC7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E9C15B6322E9D49400EDAEC7 /* LaunchScreen.storyboard */; };
 		E9C15B7022E9D49400EDAEC7 /* applepay_sampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B6F22E9D49400EDAEC7 /* applepay_sampleTests.swift */; };
 		E9C15B7B22E9D49400EDAEC7 /* applepay_sampleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E9C15B7A22E9D49400EDAEC7 /* applepay_sampleUITests.swift */; };
-		E9C15B8D22EDF03C00EDAEC7 /* PaymentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C15B8C22EDF03C00EDAEC7 /* PaymentViewController.xib */; };
+		E9C15B8D22EDF03C00EDAEC7 /* ApplePayViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E9C15B8C22EDF03C00EDAEC7 /* ApplePayViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,9 +42,15 @@
 
 /* Begin PBXFileReference section */
 		1012D7CD22FA5D5B0075EC6E /* Stripe.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Stripe.framework; path = Carthage/Build/iOS/Stripe.framework; sourceTree = "<group>"; };
+		1012D7D0230031450075EC6E /* PaymentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentsViewController.swift; sourceTree = "<group>"; };
+		1012D7D1230031450075EC6E /* PaymentsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentsViewController.xib; sourceTree = "<group>"; };
+		1012D7D5230033060075EC6E /* InAppPurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseViewController.swift; sourceTree = "<group>"; };
+		1012D7D6230033060075EC6E /* InAppPurchaseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = InAppPurchaseViewController.xib; sourceTree = "<group>"; };
+		10F1CCEE230046870081DDBF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		10F1CCF123004B2C0081DDBF /* InAppPurchaseManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InAppPurchaseManager.swift; sourceTree = "<group>"; };
 		E9C15B5522E9D48F00EDAEC7 /* applepay-sample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "applepay-sample.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E9C15B5822E9D48F00EDAEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		E9C15B5C22E9D48F00EDAEC7 /* PaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PaymentViewController.swift; sourceTree = "<group>"; };
+		E9C15B5C22E9D48F00EDAEC7 /* ApplePayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApplePayViewController.swift; sourceTree = "<group>"; };
 		E9C15B6122E9D49400EDAEC7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E9C15B6422E9D49400EDAEC7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E9C15B6622E9D49400EDAEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -49,7 +61,7 @@
 		E9C15B7A22E9D49400EDAEC7 /* applepay_sampleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = applepay_sampleUITests.swift; sourceTree = "<group>"; };
 		E9C15B7C22E9D49400EDAEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E9C15B8822E9D50000EDAEC7 /* applepay-sample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "applepay-sample.entitlements"; sourceTree = "<group>"; };
-		E9C15B8C22EDF03C00EDAEC7 /* PaymentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PaymentViewController.xib; sourceTree = "<group>"; };
+		E9C15B8C22EDF03C00EDAEC7 /* ApplePayViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ApplePayViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +70,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1012D7CE22FA5D5B0075EC6E /* Stripe.framework in Frameworks */,
+				10F1CCEF230046870081DDBF /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,9 +94,36 @@
 		1012D7CC22FA5D5B0075EC6E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				10F1CCEE230046870081DDBF /* StoreKit.framework */,
 				1012D7CD22FA5D5B0075EC6E /* Stripe.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1012D7CF2300307D0075EC6E /* ApplePay */ = {
+			isa = PBXGroup;
+			children = (
+				E9C15B5C22E9D48F00EDAEC7 /* ApplePayViewController.swift */,
+				E9C15B8C22EDF03C00EDAEC7 /* ApplePayViewController.xib */,
+			);
+			path = ApplePay;
+			sourceTree = "<group>";
+		};
+		1012D7D4230032DD0075EC6E /* InAppPurchase */ = {
+			isa = PBXGroup;
+			children = (
+				1012D7D5230033060075EC6E /* InAppPurchaseViewController.swift */,
+				1012D7D6230033060075EC6E /* InAppPurchaseViewController.xib */,
+			);
+			path = InAppPurchase;
+			sourceTree = "<group>";
+		};
+		10F1CCF023004B190081DDBF /* Util */ = {
+			isa = PBXGroup;
+			children = (
+				10F1CCF123004B2C0081DDBF /* InAppPurchaseManager.swift */,
+			);
+			path = Util;
 			sourceTree = "<group>";
 		};
 		E9C15B4C22E9D48E00EDAEC7 = {
@@ -112,6 +152,7 @@
 			children = (
 				E9C15B8822E9D50000EDAEC7 /* applepay-sample.entitlements */,
 				E9C15B5822E9D48F00EDAEC7 /* AppDelegate.swift */,
+				10F1CCF023004B190081DDBF /* Util */,
 				E9C15B8922EDEF4500EDAEC7 /* View */,
 				E9C15B6122E9D49400EDAEC7 /* Assets.xcassets */,
 				E9C15B6322E9D49400EDAEC7 /* LaunchScreen.storyboard */,
@@ -141,8 +182,10 @@
 		E9C15B8922EDEF4500EDAEC7 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				E9C15B5C22E9D48F00EDAEC7 /* PaymentViewController.swift */,
-				E9C15B8C22EDF03C00EDAEC7 /* PaymentViewController.xib */,
+				1012D7D4230032DD0075EC6E /* InAppPurchase */,
+				1012D7CF2300307D0075EC6E /* ApplePay */,
+				1012D7D0230031450075EC6E /* PaymentsViewController.swift */,
+				1012D7D1230031450075EC6E /* PaymentsViewController.xib */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -216,6 +259,11 @@
 				TargetAttributes = {
 					E9C15B5422E9D48F00EDAEC7 = {
 						CreatedOnToolsVersion = 11.0;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					E9C15B6A22E9D49400EDAEC7 = {
 						CreatedOnToolsVersion = 11.0;
@@ -254,7 +302,9 @@
 			files = (
 				E9C15B6522E9D49400EDAEC7 /* LaunchScreen.storyboard in Resources */,
 				E9C15B6222E9D49400EDAEC7 /* Assets.xcassets in Resources */,
-				E9C15B8D22EDF03C00EDAEC7 /* PaymentViewController.xib in Resources */,
+				E9C15B8D22EDF03C00EDAEC7 /* ApplePayViewController.xib in Resources */,
+				1012D7D8230033060075EC6E /* InAppPurchaseViewController.xib in Resources */,
+				1012D7D3230031450075EC6E /* PaymentsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -301,8 +351,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E9C15B5D22E9D48F00EDAEC7 /* PaymentViewController.swift in Sources */,
+				1012D7D2230031450075EC6E /* PaymentsViewController.swift in Sources */,
+				E9C15B5D22E9D48F00EDAEC7 /* ApplePayViewController.swift in Sources */,
+				1012D7D7230033060075EC6E /* InAppPurchaseViewController.swift in Sources */,
 				E9C15B5922E9D48F00EDAEC7 /* AppDelegate.swift in Sources */,
+				10F1CCF223004B2C0081DDBF /* InAppPurchaseManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

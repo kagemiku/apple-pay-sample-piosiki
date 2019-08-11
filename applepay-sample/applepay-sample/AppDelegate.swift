@@ -8,6 +8,7 @@
 
 import UIKit
 import Stripe
+import StoreKit
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -18,12 +19,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow(frame: UIScreen.main.bounds)
 
-        let nvc = UINavigationController(rootViewController: PaymentViewController())
+        let nvc = UINavigationController(rootViewController: PaymentsViewController())
         window?.rootViewController = nvc
         window?.makeKeyAndVisible()
 
         STPPaymentConfiguration.shared().publishableKey = "pk_test_gksY4PDOLoVuqLOnrnml6ca700BHh2W6DC"
         STPPaymentConfiguration.shared().appleMerchantIdentifier = "merchant.com.kagemiku.piosiki"
+
+        SKPaymentQueue.default().add(InAppPurchaseManager.shared)
 
         return true
     }
