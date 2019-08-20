@@ -128,10 +128,14 @@ extension ApplePayViewController: PKPaymentAuthorizationViewControllerDelegate {
     func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         print("payment: \(payment)")
 
-        let finishWithStatus: (PKPaymentAuthorizationStatus) -> Void = { status in
+        let finishWithStatus: (PKPaymentAuthorizationStatus, Error?) -> Void = { status, error in
+            if let err = error {
+                print("Error: \(err)")
+            }
+
             if controller.presentingViewController != nil {
                 // Notify PKPaymentAuthorizationViewController
-                completion(.init(status: status, errors: nil))
+                completion(.init(status: status, errors: error == nil ? nil : [error!]))
             } else {
                 // PKPaymentAuthorizationViewController was dismissed
             }
@@ -150,7 +154,7 @@ extension ApplePayViewController: PKPaymentAuthorizationViewControllerDelegate {
                 return
             }
 
-            let clientSecret = "secret_key"
+            let clientSecret = "set_token"
             let paymentIntentParams = STPPaymentIntentParams(clientSecret: clientSecret)
             paymentIntentParams.paymentMethodId = paymentMethod.stripeId
 
@@ -158,11 +162,11 @@ extension ApplePayViewController: PKPaymentAuthorizationViewControllerDelegate {
             STPPaymentHandler.shared().confirmPayment(paymentIntentParams, with: self) { (status, paymentIntent, error) in
                 switch (status) {
                 case .succeeded:
-                    finishWithStatus(.success)
+                    finishWithStatus(.success, error)
                 case .canceled:
-                    finishWithStatus(.failure)
+                    finishWithStatus(.failure, error)
                 case .failed:
-                    finishWithStatus(.failure)
+                    finishWithStatus(.failure, error)
                 default:
                     fatalError()
                 }
