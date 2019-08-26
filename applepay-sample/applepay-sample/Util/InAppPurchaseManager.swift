@@ -38,7 +38,7 @@ class InAppPurchaseManager: NSObject {
     private override init() { }
 
     func requestPurchase() {
-        let productIdentifiers: Set = ["neko"]
+        let productIdentifiers: Set = ["inu"]
         let productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
         productsRequest.delegate = self
         productsRequest.start()
@@ -46,12 +46,13 @@ class InAppPurchaseManager: NSObject {
         NotificationCenter.default.post(name: InAppPurchaseStatusKey.start.name, object: nil)
     }
 
-    func restore() {
+    func restorePurchase() {
         let request = SKReceiptRefreshRequest()
         request.delegate = self
         request.start()
-        SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
+
+        NotificationCenter.default.post(name: InAppPurchaseStatusKey.start.name, object: nil)
     }
 
     private func validateReceipt(url: String) {
@@ -125,6 +126,14 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
                 fatalError()
             }
         }
+    }
+
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        print("Queue: \(queue)")
+    }
+
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        print("Queue: \(queue), error: \(error)")
     }
 
 }

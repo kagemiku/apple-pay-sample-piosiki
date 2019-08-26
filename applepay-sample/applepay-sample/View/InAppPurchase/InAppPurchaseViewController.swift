@@ -18,4 +18,8 @@ class InAppPurchaseViewController: UIViewController {
         InAppPurchaseManager.shared.requestPurchase()
     }
 
+    @IBAction func didTapRestoreButton(_ sender: Any) {
+        InAppPurchaseManager.shared.restorePurchase()
+    }
+
 }
