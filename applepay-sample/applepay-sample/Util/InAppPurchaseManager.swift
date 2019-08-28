@@ -117,8 +117,8 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .restored:
                 print("resotred")
-                queue.finishTransaction(transaction)
                 validateReceipt(url: "https://buy.itunes.apple.com/verifyReceipt")
+                queue.finishTransaction(transaction)
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .deferred:
                 print("deferred")
