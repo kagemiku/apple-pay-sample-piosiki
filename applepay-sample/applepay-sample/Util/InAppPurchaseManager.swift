@@ -22,6 +22,11 @@ final class InAppPurchaseManager: NSObject {
         }
     }
 
+    enum VerifyReceiptEnvironment: String {
+        case production = "https://buy.itunes.apple.com/verifyReceipt"
+        case sandbox = "https://sandbox.itunes.apple.com/verifyReceipt"
+    }
+
     enum ReceiptErrorStatus: Int {
         case invalidJSON                    = 21000
         case invalidReceiptDataProperty     = 21002
@@ -55,7 +60,7 @@ final class InAppPurchaseManager: NSObject {
         NotificationCenter.default.post(name: InAppPurchaseStatusKey.start.name, object: nil)
     }
 
-    private func validateReceipt(url: String) {
+    private func validateReceipt(env: VerifyReceiptEnvironment) {
         let receiptUrl = Bundle.main.appStoreReceiptURL
         let receiptData = try! Data(contentsOf: receiptUrl!)
 
@@ -65,7 +70,7 @@ final class InAppPurchaseManager: NSObject {
         ]
         let requestData = try! JSONSerialization.data(withJSONObject: requestContents, options: .init(rawValue: 0))
 
-        var request = URLRequest(url: URL(string: url)!)
+        var request = URLRequest(url: URL(string: env.rawValue)!)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"content-type")
         request.timeoutInterval = 10.0
         request.httpMethod = "POST"
@@ -84,7 +89,7 @@ final class InAppPurchaseManager: NSObject {
 
                 let status = json["status"] as! Int
                 if status == ReceiptErrorStatus.invalidReceiptForProduction.rawValue {
-                    self.validateReceipt(url: "https://sandbox.itunes.apple.com/verifyReceipt")
+                    self.validateReceipt(env: .sandbox)
                 }
 
                 guard let receipts = json["receipt"] as? [String: AnyObject] else { return }
@@ -108,7 +113,7 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
                 print("purchasing")
             case .purchased:
                 print("purchased")
-                validateReceipt(url: "https://buy.itunes.apple.com/verifyReceipt")
+                validateReceipt(env: .production)
                 queue.finishTransaction(transaction)
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .failed:
@@ -117,7 +122,7 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .restored:
                 print("resotred")
-                validateReceipt(url: "https://buy.itunes.apple.com/verifyReceipt")
+                validateReceipt(env: .production)
                 queue.finishTransaction(transaction)
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .deferred:
