@@ -9,7 +9,7 @@
 import Foundation
 import StoreKit
 
-class InAppPurchaseManager: NSObject {
+final class InAppPurchaseManager: NSObject {
 
     static let shared = InAppPurchaseManager()
 
