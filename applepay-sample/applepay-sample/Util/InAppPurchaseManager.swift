@@ -67,7 +67,7 @@ final class InAppPurchaseManager: NSObject {
 
         var request = URLRequest(url: URL(string: url)!)
         request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"content-type")
-        request.timeoutInterval = 5.0
+        request.timeoutInterval = 10.0
         request.httpMethod = "POST"
         request.httpBody = requestData
 
