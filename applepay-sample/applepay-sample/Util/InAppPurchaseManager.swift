@@ -22,10 +22,23 @@ class InAppPurchaseManager: NSObject {
         }
     }
 
+    enum ReceiptErrorStatus: Int {
+        case invalidJSON                    = 21000
+        case invalidReceiptDataProperty     = 21002
+        case unauthenticableReceipt         = 21003
+        case mismatchedSharedSecret         = 21004
+        case unavairableReceiptServer       = 21005
+        case expiredSubscription            = 21006
+        case invalidReceiptForProduction    = 21007
+        case invalidReceiptForTest          = 21008
+        case unacceptableReceipt            = 21010
+        case internalDataAccess             = 21100
+    }
+
     private override init() { }
 
     func requestPurchase() {
-        let productIdentifiers: Set = ["neko"]
+        let productIdentifiers: Set = ["inu"]
         let productsRequest = SKProductsRequest(productIdentifiers: productIdentifiers)
         productsRequest.delegate = self
         productsRequest.start()
@@ -33,12 +46,55 @@ class InAppPurchaseManager: NSObject {
         NotificationCenter.default.post(name: InAppPurchaseStatusKey.start.name, object: nil)
     }
 
-    func restore() {
+    func restorePurchase() {
         let request = SKReceiptRefreshRequest()
         request.delegate = self
         request.start()
-        SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
+
+        NotificationCenter.default.post(name: InAppPurchaseStatusKey.start.name, object: nil)
+    }
+
+    private func validateReceipt(url: String) {
+        let receiptUrl = Bundle.main.appStoreReceiptURL
+        let receiptData = try! Data(contentsOf: receiptUrl!)
+
+        let requestContents = [
+            "receipt-data": receiptData.base64EncodedString(options: .endLineWithCarriageReturn),
+            "password": "password",
+        ]
+        let requestData = try! JSONSerialization.data(withJSONObject: requestContents, options: .init(rawValue: 0))
+
+        var request = URLRequest(url: URL(string: url)!)
+        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"content-type")
+        request.timeoutInterval = 5.0
+        request.httpMethod = "POST"
+        request.httpBody = requestData
+
+        let session = URLSession.shared
+        let task = session.dataTask(with: request, completionHandler: { (data, response, error) in
+            guard error == nil else {
+                print("Error: \(error!)")
+                return
+            }
+            guard let jsonData = data else { return }
+
+            do {
+                let json = try JSONSerialization.jsonObject(with: jsonData, options: .init(rawValue: 0)) as! [String: AnyObject]
+
+                let status = json["status"] as! Int
+                if status == ReceiptErrorStatus.invalidReceiptForProduction.rawValue {
+                    self.validateReceipt(url: "https://sandbox.itunes.apple.com/verifyReceipt")
+                }
+
+                guard let receipts = json["receipt"] as? [String: AnyObject] else { return }
+
+                // verify receipt
+            } catch let error {
+                print("Error in validateReceipt: \(error)")
+            }
+        })
+        task.resume()
     }
 
 }
@@ -52,6 +108,7 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
                 print("purchasing")
             case .purchased:
                 print("purchased")
+                validateReceipt(url: "https://buy.itunes.apple.com/verifyReceipt")
                 queue.finishTransaction(transaction)
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .failed:
@@ -61,6 +118,7 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
             case .restored:
                 print("resotred")
                 queue.finishTransaction(transaction)
+                validateReceipt(url: "https://buy.itunes.apple.com/verifyReceipt")
                 NotificationCenter.default.post(name: InAppPurchaseStatusKey.finish.name, object: nil)
             case .deferred:
                 print("deferred")
@@ -68,6 +126,14 @@ extension InAppPurchaseManager: SKPaymentTransactionObserver {
                 fatalError()
             }
         }
+    }
+
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        print("Queue: \(queue)")
+    }
+
+    func paymentQueue(_ queue: SKPaymentQueue, restoreCompletedTransactionsFailedWithError error: Error) {
+        print("Queue: \(queue), error: \(error)")
     }
 
 }
