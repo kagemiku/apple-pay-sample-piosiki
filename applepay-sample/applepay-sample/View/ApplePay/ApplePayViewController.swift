@@ -87,7 +87,8 @@ class ApplePayViewController: UIViewController {
         let deliveryFee: NSDecimalNumber = 5
         let deliveryFeeItem = PKPaymentSummaryItem(label: "delivery fee", amount: deliveryFee)
 
-        let totalFee = NSDecimalNumber(value: itemFee.intValue + deliveryFee.intValue)
+        let totalFeeValue = itemFee.intValue + deliveryFee.intValue
+        let totalFee = NSDecimalNumber(value: totalFeeValue)
         let totalItem = PKPaymentSummaryItem(label: "total", amount: totalFee)
 
         return [item, deliveryFeeItem, totalItem]
