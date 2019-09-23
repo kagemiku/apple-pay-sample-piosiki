@@ -71,7 +71,7 @@ final class InAppPurchaseManager: NSObject {
         let requestData = try! JSONSerialization.data(withJSONObject: requestContents, options: .init(rawValue: 0))
 
         var request = URLRequest(url: URL(string: env.rawValue)!)
-        request.setValue("application/x-www-form-urlencoded", forHTTPHeaderField:"content-type")
+        request.setValue("application/json", forHTTPHeaderField:"content-type")
         request.timeoutInterval = 10.0
         request.httpMethod = "POST"
         request.httpBody = requestData
