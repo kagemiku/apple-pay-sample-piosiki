@@ -126,33 +126,79 @@ extension ApplePayViewController: PKPaymentAuthorizationViewControllerDelegate {
         controller.dismiss(animated: true, completion: nil)
     }
 
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, completion: @escaping (PKPaymentAuthorizationStatus) -> Void) {
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didAuthorizePayment payment: PKPayment, handler completion: @escaping (PKPaymentAuthorizationResult) -> Void) {
         print("payment: \(payment)")
 
-        STPAPIClient.shared().createToken(with: payment) { (token: STPToken?, error: Error?) in
+        let finishWithStatus: (PKPaymentAuthorizationStatus, Error?) -> Void = { status, error in
+            if let err = error {
+                print("Error: \(err)")
+            }
+
+            if controller.presentingViewController != nil {
+                // Notify PKPaymentAuthorizationViewController
+                completion(.init(status: status, errors: error == nil ? nil : [error!]))
+            } else {
+                // PKPaymentAuthorizationViewController was dismissed
+            }
+        };
+
+        STPAPIClient.shared().createPaymentMethod(with: payment) { (paymentMethod: STPPaymentMethod?, error: Error?) in
             guard error == nil else {
                 print("Error: \(error!)")
-                completion(.failure)
+                completion(.init(status: .failure, errors: [error!]))
                 return
             }
 
-            guard let token = token else {
-                print("Error: token is nil")
-                completion(.failure)
+            guard let paymentMethod = paymentMethod else {
+                print("Error: paymentMethod is nil")
+                completion(.init(status: .failure, errors: nil))
                 return
             }
 
-            print("Token: \(token)")
-            completion(.success)
+            let clientSecret = "set_token"
+            let paymentIntentParams = STPPaymentIntentParams(clientSecret: clientSecret)
+            paymentIntentParams.paymentMethodId = paymentMethod.stripeId
+
+            // Confirm the Payment Intent with the payment method
+            STPPaymentHandler.shared().confirmPayment(paymentIntentParams, with: self) { (status, paymentIntent, error) in
+                switch (status) {
+                case .succeeded:
+                    finishWithStatus(.success, error)
+                case .canceled:
+                    finishWithStatus(.failure, error)
+                case .failed:
+                    finishWithStatus(.failure, error)
+                default:
+                    fatalError()
+                }
+            }
         }
     }
 
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didSelect shippingMethod: PKShippingMethod, completion: @escaping (PKPaymentAuthorizationStatus, [PKPaymentSummaryItem]) -> Void) {
-        completion(.success, paymentSummaryItems())
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didSelect shippingMethod: PKShippingMethod, handler completion: @escaping (PKPaymentRequestShippingMethodUpdate) -> Void) {
+        completion(.init(paymentSummaryItems: paymentSummaryItems()))
     }
 
-    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didSelectShippingContact contact: PKContact, completion: @escaping (PKPaymentAuthorizationStatus, [PKShippingMethod], [PKPaymentSummaryItem]) -> Void) {
-        completion(.success, shippingMethods(), paymentSummaryItems())
+    func paymentAuthorizationViewController(_ controller: PKPaymentAuthorizationViewController, didSelectShippingContact contact: PKContact, handler completion: @escaping (PKPaymentRequestShippingContactUpdate) -> Void) {
+        completion(.init(errors: nil, paymentSummaryItems: paymentSummaryItems(), shippingMethods: shippingMethods()))
+    }
+
+}
+
+extension ApplePayViewController: STPAuthenticationContext {
+
+    func authenticationPresentingViewController() -> UIViewController {
+        return self
+    }
+
+    func prepareAuthenticationContextForPresentation(completion: @escaping STPVoidBlock) {
+        if presentedViewController != nil {
+            dismiss(animated: true) {
+                completion()
+            }
+        } else {
+            completion()
+        }
     }
 
 }
